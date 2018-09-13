@@ -5,6 +5,13 @@ using WMPLib;
 
 public class Energizer
 {
+    private bool gameOver = false;
+
+    private Timer timer = new Timer();
+
+    private Timer timer2 = new Timer();
+
+    private Timer timer3 = new Timer();
 
     private WindowsMediaPlayer wmp = new WindowsMediaPlayer();
 
@@ -176,13 +183,11 @@ public class Energizer
 
         SetSubmarinePositions();
 
-        Timer timer = new Timer();
         timer.Interval = 40;
         timer.Tick += new EventHandler(Move);
         timer.Start();
 
-        Timer timer2 = new Timer();
-        timer2.Interval = 4;
+        timer2.Interval = 200;
         timer2.Tick += new EventHandler(Mv);
         timer2.Start();
 
@@ -190,15 +195,9 @@ public class Energizer
 
         PlaySong(null, null);
 
-        Timer timer3 = new Timer();
         timer3.Interval = 3 * 60 * 1000;
         timer3.Tick += new EventHandler(PlaySong);
         timer3.Start();
-
-        Timer timer4 = new Timer();
-        timer4.Interval = 600;
-        timer4.Tick += new EventHandler(AnimBg);
-        //timer4.Start();
     }
 
     private void PlaySong(object sender, EventArgs e)
@@ -207,9 +206,33 @@ public class Energizer
         wmp.controls.play();
     }
 
+    private void StopSong()
+    {
+        wmp.controls.stop();
+    }
+
     private void MoveShip(object sender, KeyEventArgs e)
     {
-        if(e.KeyCode == Keys.Up)
+        if (e.KeyCode == Keys.Enter)
+        {
+            if(gameOver)
+            {
+                ship.x = 5;
+                ship.y = 4;
+                ship.direction = "right";
+                ship.life = 100;
+
+                level = 0;
+
+                timer.Start();
+                timer2.Start();
+
+                PlaySong(null, null);
+
+                timer3.Start();
+            }
+        }
+        if (e.KeyCode == Keys.Up)
         {
             if(lk != lastKey.Down)
             {
@@ -310,7 +333,7 @@ public class Energizer
 
         if (ship.x < 0 || ship.x > 58 || ship.y < 0 || ship.y > 40)
         {
-            Application.Exit();
+            doGameOver();
         }
 
         if (bg != null)
@@ -321,7 +344,7 @@ public class Energizer
 
         for (int i = 0; i < caps.Count; i++)
         {
-            g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 50, 50);
+            g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 20, 20);
             if (ship.x >= caps[i].x - 1 && ship.x <= caps[i].x + 1 && ship.y >= caps[i].y - 1 && ship.y <= caps[i].y + 1)
             {
                 ship.life += 10;
@@ -332,25 +355,25 @@ public class Energizer
         if (ship.direction.Equals("up"))
         {
             Image gg = shipup.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 100, 100);
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
             ship.y -= 1;
         }
         if (ship.direction.Equals("down"))
         {
             Image gg = shipdown.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 100, 100);
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
             ship.y += 1;
         }
         if (ship.direction.Equals("left"))
         {
             Image gg = shipleft.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 100, 100);
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
             ship.x -= 1;
         }
         if (ship.direction.Equals("right"))
         {
             Image gg = shipright.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 100, 100);
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
             ship.x += 1;
         }
 
@@ -371,10 +394,7 @@ public class Energizer
         {
             g.DrawImage(submarineRightDown, threex, threey, 80, 300);
         }
-
-
-
-
+        
         if (twoleft)
         {
             g.DrawImage(submarineTopLeft, twox, twoy, 300, 80);
@@ -548,15 +568,27 @@ public class Energizer
         fal = true;
     }
 
+    private void doGameOver()
+    {
+        timer.Stop();
+        timer2.Stop();
+        timer3.Stop();
+
+        form.Text = "Game Over, Energy: 0 (Press ENTER to replay)";
+
+        gameOver = true;
+    }
+
     private void Move(object sender, EventArgs e)
     {
         ship.life--;
 
-        form.Text = "Energy: " + ship.life;
         if (ship.life <= 0)
         {
-            Application.Exit();
+            doGameOver();
         }
+
+        form.Text = "Energy: " + ship.life;
 
         Level1();
         Level2();

@@ -92,7 +92,7 @@ public class Glock
     public void exe(System.Collections.Generic.List<GlockBullies> bullies)
     {
         this.B = bullies;
-        timer1.Interval = 11;
+        timer1.Interval = 300;
         timer1.Tick += new EventHandler(moveTheBullets);
         try
         {
@@ -101,31 +101,12 @@ public class Glock
         catch (Exception e)
         {
         }
-        timer2.Interval = 150 * 1000;
-        timer2.Tick += new EventHandler(StopMovingBullets);
-        try
-        {
-            timer2.Start();
-        }
-        catch (Exception e)
-        {
-        }
-    }
-
-    private void StopMovingBullets(object sender, EventArgs e)
-    {
-        for (int i = 0; i < B.Count; i++)
-        {
-            B.Remove(B[i]);
-        }
-        timer1.Stop();
-        timer1.Dispose();
-        timer2.Stop();
-        timer2.Dispose();
     }
 
     private void moveTheBullets(object sender, EventArgs e)
     {
+        if (ship.life == 0)
+            return;
         for (int k = 0; k < B.Count; k++)
         {
             if (B[k].dead != true)
@@ -133,7 +114,7 @@ public class Glock
                 B[k].move();
                 try
                 {
-                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width, myBullet.Height);
+                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width/2, myBullet.Height/2);
                 }
                 catch (Exception ex)
                 {
