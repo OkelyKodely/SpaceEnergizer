@@ -81,9 +81,10 @@ public class Glock
     {
         for (int k = 0; k < B.Count; k++)
         {
-            if (B[k].whereami.X == ship.x && B[k].whereami.Y == ship.y)
+            if (B[k].whereami.X >= ship.x - 1 && B[k].whereami.X <= ship.x + 1 && B[k].whereami.Y >= ship.y - 1 && B[k].whereami.Y <= ship.y + 1)
             {
-                ship.life-=180;
+                ship.life-=500;
+                B.Remove(B[k]);
             }
         }
     }
@@ -91,7 +92,7 @@ public class Glock
     public void exe(System.Collections.Generic.List<GlockBullies> bullies)
     {
         this.B = bullies;
-        timer1.Interval = 110;
+        timer1.Interval = 11;
         timer1.Tick += new EventHandler(moveTheBullets);
         try
         {
@@ -132,7 +133,7 @@ public class Glock
                 B[k].move();
                 try
                 {
-                    g.DrawImage(myBullet, B[k].whereami.X * 10, B[k].whereami.Y * 10, myBullet.Width, myBullet.Height);
+                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width, myBullet.Height);
                 }
                 catch (Exception ex)
                 {

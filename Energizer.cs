@@ -65,8 +65,8 @@ public class Energizer
 
     public Energizer()
     {
-        form.SetBounds(0, 0, 1280, 700);
-        panel.SetBounds(0, 0, 1280, 700);
+        form.SetBounds(0, 0, 1280, 750);
+        panel.SetBounds(0, 0, 1280, 750);
         form.Controls.Add(panel);
 
         g = panel.CreateGraphics();
@@ -258,7 +258,7 @@ public class Energizer
         twoleft = true;
 
         fourx = 1000;
-        foury = 600;
+        foury = 630;
         fourleft = true;
     }
 
@@ -321,10 +321,10 @@ public class Energizer
 
         for (int i = 0; i < caps.Count; i++)
         {
-            g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 70, 70);
-            if (ship.x + 1 == caps[i].x && ship.y + 1 == caps[i].y)
+            g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 50, 50);
+            if (ship.x >= caps[i].x - 1 && ship.x <= caps[i].x + 1 && ship.y >= caps[i].y - 1 && ship.y <= caps[i].y + 1)
             {
-                ship.life += 4;
+                ship.life += 10;
                 caps.Remove(caps[i]);
             }
         }
