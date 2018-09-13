@@ -81,7 +81,7 @@ public class Glock
     {
         for (int k = 0; k < B.Count; k++)
         {
-            if (B[k].whereami.X >= ship.x - 1 && B[k].whereami.X <= ship.x + 1 && B[k].whereami.Y >= ship.y - 1 && B[k].whereami.Y <= ship.y + 1)
+            if (B[k].whereami.X == ship.x && B[k].whereami.Y == ship.y)
             {
                 ship.life-=500;
                 B.Remove(B[k]);
@@ -92,7 +92,7 @@ public class Glock
     public void exe(System.Collections.Generic.List<GlockBullies> bullies)
     {
         this.B = bullies;
-        timer1.Interval = 300;
+        timer1.Interval = 200;
         timer1.Tick += new EventHandler(moveTheBullets);
         try
         {
@@ -100,6 +100,39 @@ public class Glock
         }
         catch (Exception e)
         {
+        }
+
+        System.Windows.Forms.Timer timer_1 = new System.Windows.Forms.Timer();
+        timer_1.Interval = 100;
+        timer_1.Tick += new EventHandler(moveTheBullets2);
+        try
+        {
+            timer_1.Start();
+        }
+        catch (Exception e)
+        {
+        }
+    }
+
+    private void moveTheBullets2(object sender, EventArgs e)
+    {
+        if (ship.life == 0)
+        {
+            B.Clear();
+            return;
+        }
+        for (int k = 0; k < B.Count; k++)
+        {
+            if (B[k].dead != true)
+            {
+                try
+                {
+                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width / 2, myBullet.Height / 2);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
     }
 
@@ -112,13 +145,6 @@ public class Glock
             if (B[k].dead != true)
             {
                 B[k].move();
-                try
-                {
-                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width/2, myBullet.Height/2);
-                }
-                catch (Exception ex)
-                {
-                }
             }
             if (B[k].whereami.X > 1280 || B[k].whereami.X < 0)
             {
