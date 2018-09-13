@@ -10,9 +10,11 @@ public class Energizer
 
     private GifImage gi = new GifImage(Environment.CurrentDirectory + "\\space.gif");
 
+    private System.Collections.Generic.List<Energy> caps = new System.Collections.Generic.List<Energy>();
+
     private int level = 0;
 
-    private System.Collections.Generic.List<Energy> caps = new System.Collections.Generic.List<Energy>();
+    private Random rd = new Random();
 
     private Graphics g;
 
@@ -98,8 +100,6 @@ public class Energizer
         ship.direction = "right";
     }
 
-    Random rd = new Random();
-
     private void SetGoals(int level)
     {
         for (int x = 0; x < level/2; x++)
@@ -167,12 +167,12 @@ public class Energizer
         SetSubmarinePositions();
 
         Timer timer = new Timer();
-        timer.Interval = 1000;
+        timer.Interval = 4;
         timer.Tick += new EventHandler(Move);
         timer.Start();
 
         Timer timer2 = new Timer();
-        timer2.Interval = 120;
+        timer2.Interval = 4;
         timer2.Tick += new EventHandler(Mv);
         timer2.Start();
 
@@ -188,7 +188,7 @@ public class Energizer
         Timer timer4 = new Timer();
         timer4.Interval = 600;
         timer4.Tick += new EventHandler(AnimBg);
-        timer4.Start();
+        //timer4.Start();
     }
 
     private void PlaySong(object sender, EventArgs e)
@@ -456,7 +456,6 @@ public class Energizer
             {
                 level++;
                 Lvl1.ToCaps(caps);
-                SetGoals(level);
             }
         }
     }
@@ -469,7 +468,6 @@ public class Energizer
             {
                 level++;
                 Lvl2.ToCaps(caps);
-                SetGoals(level);
             }
         }
     }
@@ -482,7 +480,6 @@ public class Energizer
             {
                 level++;
                 Lvl3.ToCaps(caps);
-                SetGoals(level);
             }
         }
     }
@@ -495,7 +492,6 @@ public class Energizer
             {
                 level++;
                 Lvl4.ToCaps(caps);
-                SetGoals(level);
             }
         }
     }
@@ -508,7 +504,6 @@ public class Energizer
             {
                 level++;
                 Lvl5.ToCaps(caps);
-                SetGoals(level);
             }
         }
     }
@@ -521,7 +516,6 @@ public class Energizer
             {
                 level++;
                 Lvl6.ToCaps(caps);
-                SetGoals(level);
             }
         }
     }
@@ -534,7 +528,6 @@ public class Energizer
             {
                 level++;
                 Lvl7.ToCaps(caps);
-                SetGoals(level);
             }
         }
     }
@@ -567,7 +560,7 @@ public class Energizer
         {
             oney-=100;
             g.DrawImage(submarineLeftUp, onex, oney, 20, 200);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
@@ -582,7 +575,7 @@ public class Energizer
         {
             oney+=100;
             g.DrawImage(submarineLeftDown, onex, oney, 20, 200);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
@@ -598,7 +591,7 @@ public class Energizer
         {
             threey -= 100;
             g.DrawImage(submarineRightUp, threex, threey, 20, 200);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
@@ -614,7 +607,7 @@ public class Energizer
         {
             threey += 100;
             g.DrawImage(submarineRightDown, threex, threey, 20, 200);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
@@ -634,7 +627,7 @@ public class Energizer
         {
             twox -= 100;
             g.DrawImage(submarineTopLeft, twox, twoy, 300, 80);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
@@ -650,7 +643,7 @@ public class Energizer
         {
             twox += 100;
             g.DrawImage(submarineTopRight, twox, twoy, 300, 80);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
@@ -667,7 +660,7 @@ public class Energizer
         {
             fourx -= 100;
             g.DrawImage(submarineBottomLeft, fourx, foury, 300, 80);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
@@ -684,7 +677,7 @@ public class Energizer
         {
             fourx += 100;
             g.DrawImage(submarineBottomRight, fourx, foury, 300, 80);
-            int v = r.Next(3);
+            int v = r.Next(30);
             if (v == 1)
             {
                 Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);

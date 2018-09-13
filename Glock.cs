@@ -132,7 +132,7 @@ public class Glock
                 B[k].move();
                 try
                 {
-                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, 50, 50);
+                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width, myBullet.Height);
                 }
                 catch (Exception ex)
                 {
