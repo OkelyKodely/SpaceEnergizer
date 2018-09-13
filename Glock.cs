@@ -62,7 +62,7 @@ public class Glock
                 int xrand = 1;
                 if (oppo)
                     xrand = -1;
-                int yrand = rnd.Next(2) - rnd.Next(2);
+                int yrand = 0;//rnd.Next(2) - rnd.Next(2);
                 bullies[j].moveittoit(xrand, yrand);
             }
             else
@@ -70,7 +70,7 @@ public class Glock
                 int yrand = 1;
                 if (oppo)
                     yrand = -1;
-                int xrand = rnd.Next(2) - rnd.Next(2);
+                int xrand = 0;//rnd.Next(2) - rnd.Next(2);
                 bullies[j].moveittoit(xrand, yrand);
             }
         }
@@ -83,7 +83,7 @@ public class Glock
         {
             if (B[k].whereami.X == ship.x && B[k].whereami.Y == ship.y)
             {
-                ship.life-=18;
+                ship.life-=180;
             }
         }
     }
@@ -100,7 +100,7 @@ public class Glock
         catch (Exception e)
         {
         }
-        timer2.Interval = 15 * 1000;
+        timer2.Interval = 150 * 1000;
         timer2.Tick += new EventHandler(StopMovingBullets);
         try
         {
@@ -132,7 +132,7 @@ public class Glock
                 B[k].move();
                 try
                 {
-                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width, myBullet.Height);
+                    g.DrawImage(myBullet, B[k].whereami.X * 10, B[k].whereami.Y * 10, myBullet.Width, myBullet.Height);
                 }
                 catch (Exception ex)
                 {
@@ -142,7 +142,7 @@ public class Glock
             {
                 B.Remove(B[k]);
             }
-            else if (B[k].whereami.Y > 1024 || B[k].whereami.Y < 0)
+            else if (B[k].whereami.Y > 700 || B[k].whereami.Y < 0)
             {
                 B.Remove(B[k]);
             }

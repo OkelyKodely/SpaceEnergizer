@@ -61,10 +61,12 @@ public class Energizer
 
     private bool fal = false;
 
+    private bool start = true;
+
     public Energizer()
     {
-        form.SetBounds(0, 0, 1280, 1024);
-        panel.SetBounds(0, 0, 1280, 1024);
+        form.SetBounds(0, 0, 1280, 700);
+        panel.SetBounds(0, 0, 1280, 700);
         form.Controls.Add(panel);
 
         g = panel.CreateGraphics();
@@ -164,10 +166,18 @@ public class Energizer
 
     public void Play()
     {
+        if(start)
+        {
+            start = false;
+            form.StartPosition = FormStartPosition.Manual;
+            form.Left = 0;
+            form.Top = 0;
+        }
+
         SetSubmarinePositions();
 
         Timer timer = new Timer();
-        timer.Interval = 4;
+        timer.Interval = 40;
         timer.Tick += new EventHandler(Move);
         timer.Start();
 
@@ -248,7 +258,7 @@ public class Energizer
         twoleft = true;
 
         fourx = 1000;
-        foury = 850;
+        foury = 600;
         fourleft = true;
     }
 
@@ -298,7 +308,7 @@ public class Energizer
             g.DrawImage(shape, shapes[x].x * 20, shapes[x].y * 20, 45, 45);
         }
 
-        if (ship.x < 0 || ship.x > 58 || ship.y < 0 || ship.y > 44)
+        if (ship.x < 0 || ship.x > 58 || ship.y < 0 || ship.y > 40)
         {
             Application.Exit();
         }
@@ -312,9 +322,9 @@ public class Energizer
         for (int i = 0; i < caps.Count; i++)
         {
             g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 70, 70);
-            if (ship.x == caps[i].x && ship.y == caps[i].y)
+            if (ship.x + 1 == caps[i].x && ship.y + 1 == caps[i].y)
             {
-                ship.life += 2;
+                ship.life += 4;
                 caps.Remove(caps[i]);
             }
         }
@@ -659,6 +669,8 @@ public class Energizer
         if (fourleft)
         {
             fourx -= 100;
+            if (fourx < 0)
+                fourx += 100;
             g.DrawImage(submarineBottomLeft, fourx, foury, 300, 80);
             int v = r.Next(30);
             if (v == 1)
@@ -676,6 +688,12 @@ public class Energizer
         else
         {
             fourx += 100;
+            if (fourx > 1280)
+            {
+                fourleft = true;
+            }
+            if (fourx > 1280)
+                fourx -= 100;
             g.DrawImage(submarineBottomRight, fourx, foury, 300, 80);
             int v = r.Next(30);
             if (v == 1)
@@ -684,10 +702,6 @@ public class Energizer
                 gl.ver();
                 gl.opp();
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (fourx > 1280)
-            {
-                fourleft = true;
             }
         }
     
