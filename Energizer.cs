@@ -23,8 +23,6 @@ public class Energizer
 
     private WindowsMediaPlayer wmpDing = new WindowsMediaPlayer();
 
-    private GifImage gi = new GifImage(Environment.CurrentDirectory + "\\space.gif");
-
     private System.Collections.Generic.List<Energy> caps = new System.Collections.Generic.List<Energy>();
 
     private int level = 0;
@@ -116,8 +114,6 @@ public class Energizer
         form.Controls.Add(panel);
 
         g = panel.CreateGraphics();
-
-        bg = gi.GetNextFrame();
 
         energy = Image.FromFile(Environment.CurrentDirectory + "\\energy.png");
 
@@ -426,11 +422,8 @@ public class Energizer
             return;
         }
 
-        if (bg != null)
-        {
-            drawRandomSpace();
-            fal = false;
-        }
+        drawRandomSpace();
+        fal = false;
 
         //System.Threading.Thread threadPlayDing = new System.Threading.Thread(() => playDing());
 
