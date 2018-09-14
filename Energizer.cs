@@ -21,6 +21,8 @@ public class Energizer
 
     private WindowsMediaPlayer wmp = new WindowsMediaPlayer();
 
+    private WindowsMediaPlayer wmpDing = new WindowsMediaPlayer();
+
     private GifImage gi = new GifImage(Environment.CurrentDirectory + "\\space.gif");
 
     private System.Collections.Generic.List<Energy> caps = new System.Collections.Generic.List<Energy>();
@@ -53,11 +55,64 @@ public class Energizer
 
     private bool start = true;
 
+    private ToolStripMenuItem newGame = new ToolStripMenuItem();
+
+    private ToolStripMenuItem quit = new ToolStripMenuItem();
+
+    private void startNew(object sender, EventArgs e)
+    {
+        ship.x = 5;
+        ship.y = 4;
+        ship.direction = "right";
+        ship.life = 100;
+
+        level = 0;
+
+        caps = new System.Collections.Generic.List<Energy>();
+
+        timer.Start();
+        timer2.Start();
+
+        PlaySong(null, null);
+
+        timer3.Start();
+    }
+
+    private void quitGame(object sender, EventArgs e)
+    {
+        Application.Exit();
+    }
+
     public Energizer()
     {
         form.SetBounds(0, 0, 1280, 750);
+
+        var menuStrip = new MenuStrip();
+        //menuStrip.Dock = DockStyle.Top;
+        menuStrip.BackColor = Color.Red;
+        menuStrip.Name = "File";
+        menuStrip.Text = "File";
+        menuStrip.Items.Add(newGame);
+        var menu1 = new ToolStripMenuItem();
+        menuStrip.Items.Add(menu1);
+        menu1.Name = "menu1";
+        menu1.Text = "File";
+        menu1.ForeColor = Color.Black;
+        menu1.BackColor = Color.Yellow;
+        menu1.DropDownItems.Add(newGame);
+        newGame.Name = "menu1";
+        newGame.Text = "New Game";
+        newGame.Click += startNew;
+        menu1.DropDownItems.Add(quit);
+        quit.Name = "submenu";
+        quit.Text = "Quit";
+        quit.Click += quitGame;
+
+        form.Controls.Add(menuStrip);
+
         panel.SetBounds(0, 0, 1280, 750);
         panel.BackColor = Color.Red;
+
         form.Controls.Add(panel);
 
         g = panel.CreateGraphics();
@@ -143,21 +198,7 @@ public class Energizer
         {
             if(gameOver)
             {
-                ship.x = 5;
-                ship.y = 4;
-                ship.direction = "right";
-                ship.life = 100;
-
-                level = 0;
-
-                caps = new System.Collections.Generic.List<Energy>();
-
-                timer.Start();
-                timer2.Start();
-
-                PlaySong(null, null);
-
-                timer3.Start();
+                startNew(null, null);
             }
         }
         if (e.KeyCode == Keys.Up)
@@ -200,7 +241,7 @@ public class Energizer
         oney = 600;
         oneup = true;
 
-        threex = 1140;
+        threex = 1150;
         threey = 300;
         threeup = true;
 
@@ -236,6 +277,8 @@ public class Energizer
             if (ship.x == caps[i].x && ship.y == caps[i].y)
             {
                 ship.life += 10;
+                wmpDing.URL = "ding.wav";
+                wmpDing.controls.play();
                 caps.Remove(caps[i]);
             }
         }
@@ -632,7 +675,7 @@ public class Energizer
             return;
         }
 
-        form.Text = "Vitals: " + ship.life;
+        form.Text = "Space Energizer (by Daniel Cho) | Vitals: " + ship.life;
 
         Level1();
         Level2();
