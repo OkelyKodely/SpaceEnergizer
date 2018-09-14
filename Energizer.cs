@@ -17,7 +17,7 @@ public class Energizer
 
     private Timer timer3 = new Timer();
 
-    private Timer timer4 = new Timer();
+    //private Timer timer4 = new Timer();
 
     private WindowsMediaPlayer wmp = new WindowsMediaPlayer();
 
@@ -65,6 +65,7 @@ public class Energizer
         ship.y = 4;
         ship.direction = "right";
         ship.life = 100;
+        lk = lastKey.Right;
 
         level = 0;
 
@@ -88,8 +89,7 @@ public class Energizer
         form.SetBounds(0, 0, 1280, 750);
 
         var menuStrip = new MenuStrip();
-        //menuStrip.Dock = DockStyle.Top;
-        menuStrip.BackColor = Color.Red;
+        menuStrip.BackColor = Color.Gold;
         menuStrip.Name = "File";
         menuStrip.Text = "File";
         menuStrip.Items.Add(newGame);
@@ -160,15 +160,15 @@ public class Energizer
 
         SetSubmarinePositions();
 
-        timer.Interval = 40;
+        form.KeyDown += new KeyEventHandler(MoveShip);
+
+        timer.Interval = 20;
         timer.Tick += new EventHandler(Move);
         timer.Start();
 
-        timer2.Interval = 200;
+        timer2.Interval = 100;
         timer2.Tick += new EventHandler(Mv);
         timer2.Start();
-
-        form.KeyDown += new KeyEventHandler(MoveShip);
 
         PlaySong(null, null);
 
@@ -176,9 +176,9 @@ public class Energizer
         timer3.Tick += new EventHandler(PlaySong);
         timer3.Start();
 
-        timer4.Interval = 50;
-        timer4.Tick += new EventHandler(AnimBg);
-        timer4.Start();
+        //timer4.Interval = 500;
+        //timer4.Tick += new EventHandler(AnimBg);
+        //timer4.Start();
     }
 
     private void PlaySong(object sender, EventArgs e)
@@ -190,6 +190,159 @@ public class Energizer
     private void StopSong()
     {
         wmp.controls.stop();
+    }
+
+    private void drawRandomSpace()
+    {
+        SolidBrush brush = new SolidBrush(Color.Black);
+        Rectangle rect = new Rectangle(0, 0, 1280, 750);
+        g.FillRectangle(brush, rect);
+
+        SolidBrush whiteBrush = new SolidBrush(Color.White);
+        Pen pen = new Pen(whiteBrush);
+        for(int i=0; i<25; i++)
+        {
+            int x = r.Next(1280);
+            int y = r.Next(750);
+
+            g.DrawEllipse(pen, x, y, 1, 1);
+        }
+
+        if (oneup)
+        {
+            oney -= 10;
+            g.DrawImage(submarineLeftUp, onex, oney, 80, 300);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+            if (oney < 1)
+            {
+                oneup = false;
+            }
+        }
+        else
+        {
+            oney += 10;
+            g.DrawImage(submarineLeftDown, onex, oney, 80, 300);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+            if (oney > 803)
+            {
+                oneup = true;
+            }
+        }
+
+        if (threeup)
+        {
+            threey -= 10;
+            g.DrawImage(submarineRightUp, threex, threey, 80, 300);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
+                gl.opp();
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+            if (threey < 1)
+            {
+                threeup = false;
+            }
+        }
+        else
+        {
+            threey += 10;
+            g.DrawImage(submarineRightDown, threex, threey, 80, 300);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
+                gl.opp();
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+            if (threey > 803)
+            {
+                threeup = true;
+            }
+        }
+
+        if (twoleft)
+        {
+            twox -= 10;
+            g.DrawImage(submarineTopLeft, twox, twoy, 300, 80);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
+                gl.ver();
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+            if (twox < 1)
+            {
+                twoleft = false;
+            }
+        }
+        else
+        {
+            twox += 10;
+            g.DrawImage(submarineTopRight, twox, twoy, 300, 80);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
+                gl.ver();
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+            if (twox > 1280)
+            {
+                twoleft = true;
+            }
+        }
+
+        if (fourleft)
+        {
+            fourx -= 10;
+            if (fourx < 0)
+                fourx += 10;
+            g.DrawImage(submarineBottomLeft, fourx, foury, 300, 80);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
+                gl.ver();
+                gl.opp();
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+            if (fourx < 1)
+            {
+                fourleft = false;
+            }
+        }
+        else
+        {
+            fourx += 10;
+            if (fourx > 1280)
+            {
+                fourleft = true;
+            }
+            if (fourx > 1280)
+                fourx -= 10;
+            g.DrawImage(submarineBottomRight, fourx, foury, 300, 80);
+            int v = r.Next((35 - level) * 15 - level / 2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
+            {
+                Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
+                gl.ver();
+                gl.opp();
+                gl.exe(gl.randomizeShiets(gl.Sheut()));
+            }
+        }
     }
 
     private void MoveShip(object sender, KeyEventArgs e)
@@ -254,6 +407,17 @@ public class Energizer
         fourleft = true;
     }
 
+    private void playDing()
+    {
+        try
+        {
+            //wmpDing.URL = "ding.wav";
+            //wmpDing.controls.play();
+        } catch(Exception ex)
+        {
+        }
+    }
+
     private void Mv(object sender, EventArgs e)
     {
         if (ship.x < 3 || ship.x > 59 || ship.y < 3 || ship.y > 33)
@@ -264,22 +428,28 @@ public class Energizer
 
         if (bg != null)
         {
-            SolidBrush brush = new SolidBrush(Color.Red);
-            Rectangle rect = new Rectangle(0, 0, 1280, 750);
-            g.FillRectangle(brush, rect);
-            g.DrawImage(bg, 50, 50, panel.Width - 100, panel.Height - 100);
+            drawRandomSpace();
             fal = false;
         }
 
+        //System.Threading.Thread threadPlayDing = new System.Threading.Thread(() => playDing());
+
         for (int i = 0; i < caps.Count; i++)
         {
-            g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 20, 20);
-            if (ship.x == caps[i].x && ship.y == caps[i].y)
+            if (i < caps.Count)
             {
-                ship.life += 10;
-                wmpDing.URL = "ding.wav";
-                wmpDing.controls.play();
-                caps.Remove(caps[i]);
+                try
+                {
+                    g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 20, 20);
+                    if (ship.x == caps[i].x && ship.y == caps[i].y)
+                    {
+                        ship.life += 10;
+                        //threadPlayDing.Start();
+                        eliminateCapsule(caps[i]);
+                    }
+                } catch(Exception ex)
+                {
+                }
             }
         }
 
@@ -646,11 +816,11 @@ public class Energizer
         }
     }
 
-    private void AnimBg(object sender, EventArgs e)
-    {
-        bg = gi.GetNextFrame();
-        fal = true;
-    }
+    //private void AnimBg(object sender, EventArgs e)
+    //{
+        //bg = gi.GetNextFrame();
+        //fal = true;
+    //}
 
     private void doGameOver()
     {
@@ -658,11 +828,51 @@ public class Energizer
         timer2.Stop();
         timer3.Stop();
 
-        StopSong();
+        try
+        {
+            StopSong();
+        } catch(Exception ex)
+        {
+        }
 
         form.Text = "Game Over, Vitals: 0 (Press ENTER to replay)";
 
         gameOver = true;
+    }
+
+    private void eliminateCapsule(Energy cap)
+    {
+        Random r = new Random();
+
+        int x = r.Next(10) - r.Next(10);
+        int y = r.Next(10) - r.Next(10);
+
+        if (x == 0)
+            x++;
+
+        if (y == 0)
+            y++;
+
+        System.Threading.Thread thread = new System.Threading.Thread(() => moveCapsuleOut(cap, x, y));
+        thread.Start();
+    }
+
+    private void moveCapsuleOut(Energy cap, int x, int y)
+    {
+        int count = 0;
+        while(true)
+        {
+            cap.x += x;
+            cap.y += y;
+            System.Threading.Thread.Sleep(400);
+            if (count > 5)
+            {
+                break;
+            }
+            count++;
+        }
+
+        caps.Remove(cap);
     }
 
     private void Move(object sender, EventArgs e)
@@ -781,10 +991,7 @@ public class Energizer
                 threeup = true;
             }
         }
-
-
-
-
+        
         if (twoleft)
         {
             twox -= 10;
@@ -856,7 +1063,6 @@ public class Energizer
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
             }
         }
-    
     }
 
     public class Energy
