@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using WMPLib;
 using System.Threading;
 using System.Drawing;
 using System;
@@ -20,6 +21,7 @@ public class Glock
     private bool oppo = false;
     private bool vert = false;
     private Ship ship;
+    private WindowsMediaPlayer wmp;
 
     public Glock(Image explosion, Graphics g, int x, int y, Image image, Ship ship)
     {
@@ -84,6 +86,11 @@ public class Glock
             if (B[k].whereami.X == ship.x && B[k].whereami.Y == ship.y)
             {
                 ship.life-=500;
+                g.DrawImage(myExplosion, ship.x * 20 - 100, ship.y * 20 - 80, 125, 125);
+                if(wmp == null)
+                    wmp = new WindowsMediaPlayer();
+                wmp.URL = "explosion.wav";
+                wmp.controls.play();
                 B.Remove(B[k]);
             }
         }

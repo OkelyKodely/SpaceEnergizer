@@ -5,6 +5,10 @@ using WMPLib;
 
 public class Energizer
 {
+    public Frm form = new Frm();
+
+    private Pnel panel = new Pnel();
+
     private bool gameOver = false;
 
     private Timer timer = new Timer();
@@ -29,28 +33,9 @@ public class Energizer
 
     private Image bg;
 
-    public class Energy
-    {
-        public int x;
-
-        public int y;
-    }
-
-    private enum lastKey
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
     private lastKey lk = lastKey.Right;
 
     private Random r = new Random(); 
-
-    public Frm form = new Frm();
-
-    private Pnel panel = new Pnel();
 
     private GifImage shipleft, shipright, shipup, shipdown;
 
@@ -72,6 +57,7 @@ public class Energizer
     {
         form.SetBounds(0, 0, 1280, 750);
         panel.SetBounds(0, 0, 1280, 750);
+        panel.BackColor = Color.Red;
         form.Controls.Add(panel);
 
         g = panel.CreateGraphics();
@@ -135,7 +121,7 @@ public class Energizer
         timer3.Tick += new EventHandler(PlaySong);
         timer3.Start();
 
-        timer4.Interval = 200;
+        timer4.Interval = 50;
         timer4.Tick += new EventHandler(AnimBg);
         timer4.Start();
     }
@@ -210,26 +196,26 @@ public class Energizer
 
     private void SetSubmarinePositions()
     {
-        onex = 0;
+        onex = 0+50;
         oney = 600;
         oneup = true;
 
-        threex = 1190;
+        threex = 1140;
         threey = 300;
         threeup = true;
 
         twox = 600;
-        twoy = 0;
+        twoy = 50;
         twoleft = true;
 
         fourx = 1000;
-        foury = 630;
+        foury = 620;
         fourleft = true;
     }
 
     private void Mv(object sender, EventArgs e)
     {
-        if (ship.x < 0 || ship.x > 62 || ship.y < 0 || ship.y > 36)
+        if (ship.x < 3 || ship.x > 59 || ship.y < 3 || ship.y > 33)
         {
             doGameOver();
             return;
@@ -237,43 +223,46 @@ public class Energizer
 
         if (bg != null)
         {
-            g.DrawImage(bg, 0, 0, panel.Width, panel.Height);
+            SolidBrush brush = new SolidBrush(Color.Red);
+            Rectangle rect = new Rectangle(0, 0, 1280, 750);
+            g.FillRectangle(brush, rect);
+            g.DrawImage(bg, 50, 50, panel.Width - 100, panel.Height - 100);
             fal = false;
         }
 
         for (int i = 0; i < caps.Count; i++)
         {
             g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 20, 20);
-            if (ship.x >= caps[i].x - 1 && ship.x <= caps[i].x + 1 && ship.y >= caps[i].y - 1 && ship.y <= caps[i].y + 1)
+            if (ship.x == caps[i].x && ship.y == caps[i].y)
             {
-                ship.life += 8;
+                ship.life += 10;
                 caps.Remove(caps[i]);
             }
         }
 
         if (ship.direction.Equals("up"))
         {
+            ship.y -= 1;
             Image gg = shipup.GetNextFrame();
             g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
-            ship.y -= 1;
         }
         if (ship.direction.Equals("down"))
         {
+            ship.y += 1;
             Image gg = shipdown.GetNextFrame();
             g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
-            ship.y += 1;
         }
         if (ship.direction.Equals("left"))
         {
+            ship.x -= 1;
             Image gg = shipleft.GetNextFrame();
             g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
-            ship.x -= 1;
         }
         if (ship.direction.Equals("right"))
         {
+            ship.x += 1;
             Image gg = shipright.GetNextFrame();
             g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
-            ship.x += 1;
         }
     }
 
@@ -628,7 +617,7 @@ public class Energizer
 
         StopSong();
 
-        form.Text = "Game Over, Energy: 0 (Press ENTER to replay)";
+        form.Text = "Game Over, Vitals: 0 (Press ENTER to replay)";
 
         gameOver = true;
     }
@@ -643,7 +632,7 @@ public class Energizer
             return;
         }
 
-        form.Text = "Energy: " + ship.life;
+        form.Text = "Vitals: " + ship.life;
 
         Level1();
         Level2();
@@ -827,21 +816,25 @@ public class Energizer
     
     }
 
+    public class Energy
+    {
+        public int x;
+
+        public int y;
+    }
+
+    private enum lastKey
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
     public static void Main(string[] args)
     {
         Energizer energizer = new Energizer();
         energizer.Play();
         Application.Run(energizer.form);
     }
-}
-
-public class Ship
-{
-    public int x;
-
-    public int y;
-
-    public string direction = "up";
-
-    public int life = 100;
 }
