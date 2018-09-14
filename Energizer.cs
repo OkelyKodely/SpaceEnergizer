@@ -13,6 +13,8 @@ public class Energizer
 
     private Timer timer3 = new Timer();
 
+    private Timer timer4 = new Timer();
+
     private WindowsMediaPlayer wmp = new WindowsMediaPlayer();
 
     private GifImage gi = new GifImage(Environment.CurrentDirectory + "\\space.gif");
@@ -132,17 +134,21 @@ public class Energizer
         timer3.Interval = 3 * 60 * 1000;
         timer3.Tick += new EventHandler(PlaySong);
         timer3.Start();
+
+        timer4.Interval = 200;
+        timer4.Tick += new EventHandler(AnimBg);
+        timer4.Start();
     }
 
     private void PlaySong(object sender, EventArgs e)
     {
-        //wmp.URL = "raiden2lvl1.mp3";
-        //wmp.controls.play();
+        wmp.URL = "raiden2lvl1.mp3";
+        wmp.controls.play();
     }
 
     private void StopSong()
     {
-        //wmp.controls.stop();
+        wmp.controls.stop();
     }
 
     private void MoveShip(object sender, KeyEventArgs e)
@@ -223,7 +229,7 @@ public class Energizer
 
     private void Mv(object sender, EventArgs e)
     {
-        if (ship.x < 0 || ship.x > 58 || ship.y < 0 || ship.y > 40)
+        if (ship.x < 0 || ship.x > 62 || ship.y < 0 || ship.y > 36)
         {
             doGameOver();
             return;
@@ -240,7 +246,7 @@ public class Energizer
             g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 20, 20);
             if (ship.x >= caps[i].x - 1 && ship.x <= caps[i].x + 1 && ship.y >= caps[i].y - 1 && ship.y <= caps[i].y + 1)
             {
-                ship.life += 10;
+                ship.life += 8;
                 caps.Remove(caps[i]);
             }
         }
@@ -268,42 +274,6 @@ public class Energizer
             Image gg = shipright.GetNextFrame();
             g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
             ship.x += 1;
-        }
-
-        if (oneup)
-        {
-            g.DrawImage(submarineLeftUp, onex, oney, 80, 300);
-        }
-        else
-        {
-            g.DrawImage(submarineLeftDown, onex, oney, 80, 300);
-        }
-
-        if (threeup)
-        {
-            g.DrawImage(submarineRightUp, threex, threey, 80, 300);
-        }
-        else
-        {
-            g.DrawImage(submarineRightDown, threex, threey, 80, 300);
-        }
-        
-        if (twoleft)
-        {
-            g.DrawImage(submarineTopLeft, twox, twoy, 300, 80);
-        }
-        else
-        {
-            g.DrawImage(submarineTopRight, twox, twoy, 300, 80);
-        }
-
-        if (fourleft)
-        {
-            g.DrawImage(submarineBottomLeft, fourx, foury, 300, 80);
-        }
-        else
-        {
-            g.DrawImage(submarineBottomRight, fourx, foury, 300, 80);
         }
     }
 
@@ -400,6 +370,250 @@ public class Energizer
         }
     }
 
+    private void Level9()
+    {
+        if (level == 8)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl9.ToCaps(caps);
+            }
+        }
+    }
+    private void Level10()
+    {
+        if (level == 9)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl10.ToCaps(caps);
+            }
+        }
+    }
+    private void Level11()
+    {
+        if (level == 10)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl11.ToCaps(caps);
+            }
+        }
+    }
+    private void Level12()
+    {
+        if (level == 11)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl12.ToCaps(caps);
+            }
+        }
+    }
+    private void Level13()
+    {
+        if (level == 12)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl13.ToCaps(caps);
+            }
+        }
+    }
+    private void Level14()
+    {
+        if (level == 13)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl14.ToCaps(caps);
+            }
+        }
+    }
+    private void Level15()
+    {
+        if (level == 14)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl15.ToCaps(caps);
+            }
+        }
+    }
+    private void Level16()
+    {
+        if (level == 15)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl16.ToCaps(caps);
+            }
+        }
+    }
+    private void Level17()
+    {
+        if (level == 16)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl17.ToCaps(caps);
+            }
+        }
+    }
+    private void Level18()
+    {
+        if (level == 17)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl18.ToCaps(caps);
+            }
+        }
+    }
+    private void Level19()
+    {
+        if (level == 18)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl19.ToCaps(caps);
+            }
+        }
+    }
+    private void Level20()
+    {
+        if (level == 19)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl20.ToCaps(caps);
+            }
+        }
+    }
+    private void Level21()
+    {
+        if (level == 20)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl21.ToCaps(caps);
+            }
+        }
+    }
+    private void Level22()
+    {
+        if (level == 21)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl22.ToCaps(caps);
+            }
+        }
+    }
+    private void Level23()
+    {
+        if (level == 22)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl23.ToCaps(caps);
+            }
+        }
+    }
+    private void Level24()
+    {
+        if (level == 23)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl24.ToCaps(caps);
+            }
+        }
+    }
+    private void Level25()
+    {
+        if (level == 24)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl25.ToCaps(caps);
+            }
+        }
+    }
+    private void Level26()
+    {
+        if (level == 25)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl26.ToCaps(caps);
+            }
+        }
+    }
+    private void Level27()
+    {
+        if (level == 26)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl27.ToCaps(caps);
+            }
+        }
+    }
+    private void Level28()
+    {
+        if (level == 27)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl28.ToCaps(caps);
+            }
+        }
+    }
+
+    private void Level29()
+    {
+        if (level == 28)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl29.ToCaps(caps);
+            }
+        }
+    }
+    private void Level30()
+    {
+        if (level == 29)
+        {
+            if (caps.Count == 0)
+            {
+                level++;
+                Lvl30.ToCaps(caps);
+            }
+        }
+    }
+
     private void AnimBg(object sender, EventArgs e)
     {
         bg = gi.GetNextFrame();
@@ -411,6 +625,8 @@ public class Energizer
         timer.Stop();
         timer2.Stop();
         timer3.Stop();
+
+        StopSong();
 
         form.Text = "Game Over, Energy: 0 (Press ENTER to replay)";
 
@@ -437,13 +653,45 @@ public class Energizer
         Level6();
         Level7();
         Level8();
+        Level9();
+        Level10();
+        Level11();
+        Level12();
+        Level13();
+        Level14();
+        Level15();
+        Level16();
+        Level17();
+        Level18();
+        Level19();
+        Level20();
+        Level21();
+        Level22();
+        Level23();
+        Level24();
+        Level25();
+        Level26();
+        Level27();
+        Level28();
+        Level29();
+        Level30();
+
+        if(level == 30)
+        {
+            if(caps.Count == 0)
+            {
+                doGameOver();
+                form.Text = "You won the galaxy!";
+                return;
+            }
+        }
 
         if (oneup)
         {
-            oney-=100;
-            g.DrawImage(submarineLeftUp, onex, oney, 20, 200);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            oney-=10;
+            g.DrawImage(submarineLeftUp, onex, oney, 80, 300);
+            int v = r.Next((35 - level)*15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
@@ -455,10 +703,10 @@ public class Energizer
         }
         else
         {
-            oney+=100;
-            g.DrawImage(submarineLeftDown, onex, oney, 20, 200);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            oney+=10;
+            g.DrawImage(submarineLeftDown, onex, oney, 80, 300);
+            int v = r.Next((35 - level) * 15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
@@ -471,10 +719,10 @@ public class Energizer
 
         if (threeup)
         {
-            threey -= 100;
-            g.DrawImage(submarineRightUp, threex, threey, 20, 200);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            threey -= 10;
+            g.DrawImage(submarineRightUp, threex, threey, 80, 300);
+            int v = r.Next((35 - level) * 15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
                 gl.opp();
@@ -487,10 +735,10 @@ public class Energizer
         }
         else
         {
-            threey += 100;
-            g.DrawImage(submarineRightDown, threex, threey, 20, 200);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            threey += 10;
+            g.DrawImage(submarineRightDown, threex, threey, 80, 300);
+            int v = r.Next((35 - level) * 15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
                 gl.opp();
@@ -507,10 +755,10 @@ public class Energizer
 
         if (twoleft)
         {
-            twox -= 100;
+            twox -= 10;
             g.DrawImage(submarineTopLeft, twox, twoy, 300, 80);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            int v = r.Next((35 - level) * 15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
                 gl.ver();
@@ -523,10 +771,10 @@ public class Energizer
         }
         else
         {
-            twox += 100;
+            twox += 10;
             g.DrawImage(submarineTopRight, twox, twoy, 300, 80);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            int v = r.Next((35 - level) * 15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
                 gl.ver();
@@ -540,12 +788,12 @@ public class Energizer
 
         if (fourleft)
         {
-            fourx -= 100;
+            fourx -= 10;
             if (fourx < 0)
-                fourx += 100;
+                fourx += 10;
             g.DrawImage(submarineBottomLeft, fourx, foury, 300, 80);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            int v = r.Next((35 - level) * 15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
                 gl.ver();
@@ -559,16 +807,16 @@ public class Energizer
         }
         else
         {
-            fourx += 100;
+            fourx += 10;
             if (fourx > 1280)
             {
                 fourleft = true;
             }
             if (fourx > 1280)
-                fourx -= 100;
+                fourx -= 10;
             g.DrawImage(submarineBottomRight, fourx, foury, 300, 80);
-            int v = r.Next(45 - level);
-            if (v == 1)
+            int v = r.Next((35 - level) * 15 - level/2);
+            if (v == 1 || v == 2 || v == 3 || v == 4)
             {
                 Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
                 gl.ver();
