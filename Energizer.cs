@@ -880,6 +880,16 @@ public class Energizer
 
         form.Text = "Space Energizer (by Daniel Cho) | Vitals: " + ship.life;
 
+        if (level == 30)
+        {
+            if (caps.Count == 0)
+            {
+                doGameOver();
+                form.Text = "You won the galaxy!";
+                return;
+            }
+        }
+
         Level1();
         Level2();
         Level3();
@@ -910,16 +920,6 @@ public class Energizer
         Level28();
         Level29();
         Level30();
-
-        if(level == 30)
-        {
-            if(caps.Count == 0)
-            {
-                doGameOver();
-                form.Text = "You won the galaxy!";
-                return;
-            }
-        }
 
         if (oneup)
         {
