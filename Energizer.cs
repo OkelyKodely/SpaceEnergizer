@@ -363,6 +363,9 @@ public class Energizer
                 catch (Exception ex)
                 {
                 }
+            } else
+            {
+                B.Remove(B[k]);
             }
         }
 

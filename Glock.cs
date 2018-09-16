@@ -85,7 +85,8 @@ public class Glock
         {
             if (B[k].whereami.X == ship.x && B[k].whereami.Y == ship.y)
             {
-                ship.life-=500;
+                ship.life -= 500;
+                B[k].dead = true;
                 g.DrawImage(myExplosion, ship.x * 20 - 100, ship.y * 20 - 80, 125, 125);
                 if(wmp == null)
                     wmp = new WindowsMediaPlayer();
