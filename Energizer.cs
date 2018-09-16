@@ -339,6 +339,31 @@ public class Energizer
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
             }
         }
+
+        if (ship.direction.Equals("up"))
+        {
+            ship.y -= 1;
+            Image gg = shipup.GetNextFrame();
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
+        }
+        if (ship.direction.Equals("down"))
+        {
+            ship.y += 1;
+            Image gg = shipdown.GetNextFrame();
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
+        }
+        if (ship.direction.Equals("left"))
+        {
+            ship.x -= 1;
+            Image gg = shipleft.GetNextFrame();
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
+        }
+        if (ship.direction.Equals("right"))
+        {
+            ship.x += 1;
+            Image gg = shipright.GetNextFrame();
+            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
+        }
     }
 
     private void MoveShip(object sender, KeyEventArgs e)
@@ -444,31 +469,6 @@ public class Energizer
                 {
                 }
             }
-        }
-
-        if (ship.direction.Equals("up"))
-        {
-            ship.y -= 1;
-            Image gg = shipup.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
-        }
-        if (ship.direction.Equals("down"))
-        {
-            ship.y += 1;
-            Image gg = shipdown.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
-        }
-        if (ship.direction.Equals("left"))
-        {
-            ship.x -= 1;
-            Image gg = shipleft.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
-        }
-        if (ship.direction.Equals("right"))
-        {
-            ship.x += 1;
-            Image gg = shipright.GetNextFrame();
-            g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
         }
     }
 
@@ -895,7 +895,7 @@ public class Energizer
             }
         }
 
-        //level = 18;
+        level = 22;
 
         Level1();
         Level2();
