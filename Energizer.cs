@@ -208,20 +208,6 @@ public class Energizer
             g.DrawEllipse(pen, x, y, 1, 1);
         }
 
-        for (int k = 0; k < B.Count; k++)
-        {
-            if (B[k].dead != true)
-            {
-                try
-                {
-                    g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-        }
-
         if (oneup)
         {
             oney -= 10;
@@ -232,19 +218,6 @@ public class Energizer
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
-                {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                }
             }
             if (oney < 1)
             {
@@ -261,19 +234,6 @@ public class Energizer
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
-                {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                }
             }
             if (oney > 803)
             {
@@ -292,19 +252,6 @@ public class Energizer
                 gl.opp();
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
-                {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                }
             }
             if (threey < 1)
             {
@@ -322,19 +269,6 @@ public class Energizer
                 gl.opp();
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
-                {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                }
             }
             if (threey > 803)
             {
@@ -353,19 +287,6 @@ public class Energizer
                 gl.ver();
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
-                {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                }
             }
             if (twox < 1)
             {
@@ -383,19 +304,6 @@ public class Energizer
                 gl.ver();
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
-                {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                }
             }
             if (twox > 1280)
             {
@@ -417,19 +325,6 @@ public class Energizer
                 gl.opp();
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
-                {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                }
             }
             if (fourx < 1)
             {
@@ -454,18 +349,19 @@ public class Energizer
                 gl.opp();
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
                 B.AddRange(gl.B);
-                for (int k = 0; k < B.Count; k++)
+            }
+        }
+
+        for (int k = 0; k < B.Count; k++)
+        {
+            if (B[k].dead != true)
+            {
+                try
                 {
-                    if (B[k].dead != true)
-                    {
-                        try
-                        {
-                            g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
+                    g.DrawImage(B[k].myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, B[k].myBullet.Width / 2, B[k].myBullet.Height / 2);
+                }
+                catch (Exception ex)
+                {
                 }
             }
         }
