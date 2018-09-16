@@ -209,7 +209,7 @@ public class Energizer
             oney -= 10;
             g.DrawImage(submarineLeftUp, onex, oney, 80, 300);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
@@ -224,7 +224,7 @@ public class Energizer
             oney += 10;
             g.DrawImage(submarineLeftDown, onex, oney, 80, 300);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
                 gl.exe(gl.randomizeShiets(gl.Sheut()));
@@ -240,7 +240,7 @@ public class Energizer
             threey -= 10;
             g.DrawImage(submarineRightUp, threex, threey, 80, 300);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
                 gl.opp();
@@ -256,7 +256,7 @@ public class Energizer
             threey += 10;
             g.DrawImage(submarineRightDown, threex, threey, 80, 300);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
                 gl.opp();
@@ -273,7 +273,7 @@ public class Energizer
             twox -= 10;
             g.DrawImage(submarineTopLeft, twox, twoy, 300, 80);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
                 gl.ver();
@@ -289,7 +289,7 @@ public class Energizer
             twox += 10;
             g.DrawImage(submarineTopRight, twox, twoy, 300, 80);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
                 gl.ver();
@@ -308,7 +308,7 @@ public class Energizer
                 fourx += 10;
             g.DrawImage(submarineBottomLeft, fourx, foury, 300, 80);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
                 gl.ver();
@@ -331,7 +331,7 @@ public class Energizer
                 fourx -= 10;
             g.DrawImage(submarineBottomRight, fourx, foury, 300, 80);
             int v = r.Next((35 - level) * 15 - level / 2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
+            if (v == 1 || v == 2 || v == 3 || v == 4 || v == 5 || v == 6 || v == 7 || v == 8)
             {
                 Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
                 gl.ver();
@@ -865,7 +865,12 @@ public class Energizer
             count++;
         }
 
-        caps.Remove(cap);
+        try
+        {
+            caps.Remove(cap);
+        } catch(Exception ex)
+        {
+        }
     }
 
     private void Move(object sender, EventArgs e)
@@ -889,6 +894,8 @@ public class Energizer
                 return;
             }
         }
+
+        //level = 18;
 
         Level1();
         Level2();
@@ -920,142 +927,6 @@ public class Energizer
         Level28();
         Level29();
         Level30();
-
-        if (oneup)
-        {
-            oney-=10;
-            g.DrawImage(submarineLeftUp, onex, oney, 80, 300);
-            int v = r.Next((35 - level)*15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (oney < 1)
-            {
-                oneup = false;
-            }
-        }
-        else
-        {
-            oney+=10;
-            g.DrawImage(submarineLeftDown, onex, oney, 80, 300);
-            int v = r.Next((35 - level) * 15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, onex / 20, oney / 20, bulletOne, ship);
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (oney > 803)
-            {
-                oneup = true;
-            }
-        }
-
-        if (threeup)
-        {
-            threey -= 10;
-            g.DrawImage(submarineRightUp, threex, threey, 80, 300);
-            int v = r.Next((35 - level) * 15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
-                gl.opp();
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (threey < 1)
-            {
-                threeup = false;
-            }
-        }
-        else
-        {
-            threey += 10;
-            g.DrawImage(submarineRightDown, threex, threey, 80, 300);
-            int v = r.Next((35 - level) * 15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, threex / 20, threey / 20, bulletThree, ship);
-                gl.opp();
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (threey > 803)
-            {
-                threeup = true;
-            }
-        }
-        
-        if (twoleft)
-        {
-            twox -= 10;
-            g.DrawImage(submarineTopLeft, twox, twoy, 300, 80);
-            int v = r.Next((35 - level) * 15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
-                gl.ver();
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (twox < 1)
-            {
-                twoleft = false;
-            }
-        }
-        else
-        {
-            twox += 10;
-            g.DrawImage(submarineTopRight, twox, twoy, 300, 80);
-            int v = r.Next((35 - level) * 15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, twox / 20, twoy / 20, bulletTwo, ship);
-                gl.ver();
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (twox > 1280)
-            {
-                twoleft = true;
-            }
-        }
-
-        if (fourleft)
-        {
-            fourx -= 10;
-            if (fourx < 0)
-                fourx += 10;
-            g.DrawImage(submarineBottomLeft, fourx, foury, 300, 80);
-            int v = r.Next((35 - level) * 15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
-                gl.ver();
-                gl.opp();
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-            if (fourx < 1)
-            {
-                fourleft = false;
-            }
-        }
-        else
-        {
-            fourx += 10;
-            if (fourx > 1280)
-            {
-                fourleft = true;
-            }
-            if (fourx > 1280)
-                fourx -= 10;
-            g.DrawImage(submarineBottomRight, fourx, foury, 300, 80);
-            int v = r.Next((35 - level) * 15 - level/2);
-            if (v == 1 || v == 2 || v == 3 || v == 4)
-            {
-                Glock gl = new Glock(explosion, g, fourx / 20, foury / 20, bulletFour, ship);
-                gl.ver();
-                gl.opp();
-                gl.exe(gl.randomizeShiets(gl.Sheut()));
-            }
-        }
     }
 
     public class Energy
