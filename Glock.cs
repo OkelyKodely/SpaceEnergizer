@@ -121,11 +121,11 @@ public class Glock
             {
                 B[k].move();
             }
-            if (B[k].whereami.X > 1280 || B[k].whereami.X < 0)
+            if (B[k].whereami.X > 1380 || B[k].whereami.X < -100)
             {
                 B.Remove(B[k]);
             }
-            else if (B[k].whereami.Y > 700 || B[k].whereami.Y < 0)
+            else if (B[k].whereami.Y > 800 || B[k].whereami.Y < -100)
             {
                 B.Remove(B[k]);
             }
