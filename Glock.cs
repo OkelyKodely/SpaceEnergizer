@@ -8,13 +8,13 @@ using System;
 public class Glock
 {
     public int x, y;
-    private System.Collections.Generic.List<GlockBullies> B;
+    public System.Collections.Generic.List<GlockBullies> B;
     private System.Windows.Forms.Timer timer22 = new System.Windows.Forms.Timer();
     private System.Windows.Forms.Timer timer21 = new System.Windows.Forms.Timer();
     private System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
     private System.Windows.Forms.Timer timer2 = new System.Windows.Forms.Timer();
     private Image myLead;
-    private Image myBullet, myExplosion;
+    public Image myBullet, myExplosion;
     private Graphics g;
     private int countBulleties = -1;
     private Random r = new Random();
@@ -49,7 +49,7 @@ public class Glock
         System.Collections.Generic.List<GlockBullies> bBs = new System.Collections.Generic.List<GlockBullies>();
         for (int i = 0; i < countBulleties; i++)
         {
-            bBs.Add(new GlockBullies(x, y));
+            bBs.Add(new GlockBullies(x, y, myBullet));
         }
         return bBs;
     }
@@ -108,39 +108,6 @@ public class Glock
         catch (Exception e)
         {
         }
-
-        System.Windows.Forms.Timer timer_1 = new System.Windows.Forms.Timer();
-        timer_1.Interval = 100;
-        timer_1.Tick += new EventHandler(moveTheBullets2);
-        try
-        {
-            timer_1.Start();
-        }
-        catch (Exception e)
-        {
-        }
-    }
-
-    private void moveTheBullets2(object sender, EventArgs e)
-    {
-        if (ship.life == 0)
-        {
-            B.Clear();
-            return;
-        }
-        for (int k = 0; k < B.Count; k++)
-        {
-            if (B[k].dead != true)
-            {
-                try
-                {
-                    g.DrawImage(myBullet, B[k].whereami.X * 20, B[k].whereami.Y * 20, myBullet.Width / 2, myBullet.Height / 2);
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-        }
     }
 
     private void moveTheBullets(object sender, EventArgs e)
@@ -168,14 +135,16 @@ public class Glock
 
 public class GlockBullies
 {
+    public Image myBullet = null;
     public System.Drawing.Point whereami = new System.Drawing.Point(100, 400);
     public int timetolive = 100;
     public bool dead;
     private int movex;
     private int movey;
 
-    public GlockBullies(int x, int y)
+    public GlockBullies(int x, int y, Image bullet)
     {
+        this.myBullet = bullet;
         whereami.X = x;
         whereami.Y = y;
     }
