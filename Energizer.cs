@@ -183,13 +183,23 @@ public class Energizer
 
     private void PlaySong(object sender, EventArgs e)
     {
-        wmp.URL = "raiden2lvl1.mp3";
-        wmp.controls.play();
+        try
+        {
+            wmp.URL = "raiden2lvl1.mp3";
+            wmp.controls.play();
+        } catch(Exception ex)
+        {
+        }
     }
 
     private void StopSong()
     {
-        wmp.controls.stop();
+        try
+        {
+            wmp.controls.stop();
+        } catch(Exception ex)
+        {
+        }
     }
 
     private void drawRandomSpace()
@@ -200,7 +210,7 @@ public class Energizer
 
         SolidBrush whiteBrush = new SolidBrush(Color.White);
         Pen pen = new Pen(whiteBrush);
-        for(int i=0; i<25; i++)
+        for(int i=0; i<70; i++)
         {
             int x = r.Next(1280);
             int y = r.Next(750);
@@ -393,6 +403,36 @@ public class Energizer
             Image gg = shipright.GetNextFrame();
             g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
         }
+
+        for (int i = 0; i < caps.Count; i++)
+        {
+            if (i < caps.Count)
+            {
+                try
+                {
+                    g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 40, 40);
+                    if (ship.x == caps[i].x && ship.y == caps[i].y)
+                    {
+                        ship.life += 9;
+                        g.DrawImage(explosion, ship.x * 20, ship.y * 20, 68, 68);
+                        //threadPlayDing.Start();
+                        if (wmpDing == null)
+                            wmpDing = new WindowsMediaPlayer();
+                        try
+                        {
+                            wmpDing.URL = "explosion.wav";
+                            wmpDing.controls.play();
+                        } catch(Exception ex)
+                        {
+                        }
+                        eliminateCapsule(caps[i]);
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
     }
 
     private void MoveShip(object sender, KeyEventArgs e)
@@ -480,25 +520,6 @@ public class Energizer
         fal = false;
 
         //System.Threading.Thread threadPlayDing = new System.Threading.Thread(() => playDing());
-
-        for (int i = 0; i < caps.Count; i++)
-        {
-            if (i < caps.Count)
-            {
-                try
-                {
-                    g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 20, 20);
-                    if (ship.x == caps[i].x && ship.y == caps[i].y)
-                    {
-                        ship.life += 10;
-                        //threadPlayDing.Start();
-                        eliminateCapsule(caps[i]);
-                    }
-                } catch(Exception ex)
-                {
-                }
-            }
-        }
     }
 
     private void Level1()
