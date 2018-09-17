@@ -27,6 +27,8 @@ public class Energizer
 
     private System.Collections.Generic.List<Energy> caps = new System.Collections.Generic.List<Energy>();
 
+    private System.Collections.Generic.List<Monster> monsters = new System.Collections.Generic.List<Monster>();
+
     private int level = 0;
 
     private Random rd = new Random();
@@ -41,7 +43,7 @@ public class Energizer
 
     private GifImage shipleft, shipright, shipup, shipdown;
 
-    private Image explosion, bulletOne, bulletTwo, bulletThree, bulletFour, energy;
+    private Image explosion, bulletOne, bulletTwo, bulletThree, bulletFour, energy, monster, monsterFollow;
 
     private Image submarineLeftUp, submarineLeftDown, submarineTopLeft, submarineTopRight, submarineRightUp, submarineRightDown, submarineBottomLeft, submarineBottomRight;
 
@@ -121,6 +123,9 @@ public class Energizer
 
         energy = Image.FromFile(Environment.CurrentDirectory + "\\energy.png");
 
+        monster = Image.FromFile(Environment.CurrentDirectory + "\\monster.png");
+        monsterFollow = Image.FromFile(Environment.CurrentDirectory + "\\monsterFollow.png");
+
         shipleft = new GifImage(Environment.CurrentDirectory + "\\shipleft.gif");
         shipright = new GifImage(Environment.CurrentDirectory + "\\shipright.gif");
         shipup = new GifImage(Environment.CurrentDirectory + "\\shipup.gif");
@@ -199,6 +204,18 @@ public class Energizer
             wmp.controls.stop();
         } catch(Exception ex)
         {
+        }
+    }
+
+    private void createMonsters()
+    {
+        monsters.Clear();
+
+        for(int i=0; i<6; i++)
+        {
+            int x = r.Next(64);
+            int y = r.Next(37);
+            monsters.Add(new Monster(x, y));
         }
     }
 
@@ -404,6 +421,63 @@ public class Energizer
             g.DrawImage(gg, ship.x * 20, ship.y * 20, 40, 40);
         }
 
+        for (int i = 0; i < monsters.Count; i++)
+        {
+            if (i < monsters.Count)
+            {
+                int x = r.Next(2) - r.Next(2);
+                int y = r.Next(2) - r.Next(2);
+                int v = r.Next(10);
+                if(level % 2 == 0)
+                {
+                    monsters[i].follow = true;
+                    if (v == 4)
+                    {
+                        if (ship.x < monsters[i].x)
+                            monsters[i].x--;
+                        if (ship.y < monsters[i].y)
+                            monsters[i].y--;
+
+                        if (ship.x > monsters[i].x)
+                            monsters[i].x++;
+                        if (ship.y > monsters[i].y)
+                            monsters[i].y++;
+                    }
+                    else if(v == 5)
+                    {
+                        if (ship.x < monsters[i].x)
+                            monsters[i].x++;
+                        if (ship.y < monsters[i].y)
+                            monsters[i].y++;
+
+                        if (ship.x > monsters[i].x)
+                            monsters[i].x--;
+                        if (ship.y > monsters[i].y)
+                            monsters[i].y--;
+                    }
+                }
+                monsters[i].x += x;
+                monsters[i].y += y;
+                if (ship.x == monsters[i].x && ship.y == monsters[i].y)
+                {
+                    ship.life -= 100;
+                    explode();
+                }
+                try
+                {
+                    Image m = null;
+                    if (!monsters[i].follow)
+                        m = monster;
+                    else
+                        m = monsterFollow;
+                    g.DrawImage(m, monsters[i].x * 20, monsters[i].y * 20, 55, 55);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+
         for (int i = 0; i < caps.Count; i++)
         {
             if (i < caps.Count)
@@ -416,15 +490,7 @@ public class Energizer
                         ship.life += 9;
                         g.DrawImage(explosion, ship.x * 20, ship.y * 20, 68, 68);
                         //threadPlayDing.Start();
-                        if (wmpDing == null)
-                            wmpDing = new WindowsMediaPlayer();
-                        try
-                        {
-                            wmpDing.URL = "explosion.wav";
-                            wmpDing.controls.play();
-                        } catch(Exception ex)
-                        {
-                        }
+                        explode();
                         eliminateCapsule(caps[i]);
                     }
                 }
@@ -432,6 +498,20 @@ public class Energizer
                 {
                 }
             }
+        }
+    }
+
+    private void explode()
+    {
+        if (wmpDing == null)
+            wmpDing = new WindowsMediaPlayer();
+        try
+        {
+            wmpDing.URL = "explosion.wav";
+            wmpDing.controls.play();
+        }
+        catch (Exception ex)
+        {
         }
     }
 
@@ -528,6 +608,8 @@ public class Energizer
         {
             level++;
             Lvl1.ToCaps(caps);
+
+            createMonsters();
         }
     }
 
@@ -539,6 +621,8 @@ public class Energizer
             {
                 level++;
                 Lvl2.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -551,6 +635,8 @@ public class Energizer
             {
                 level++;
                 Lvl3.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -563,6 +649,8 @@ public class Energizer
             {
                 level++;
                 Lvl4.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -575,6 +663,8 @@ public class Energizer
             {
                 level++;
                 Lvl5.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -587,6 +677,8 @@ public class Energizer
             {
                 level++;
                 Lvl6.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -599,6 +691,8 @@ public class Energizer
             {
                 level++;
                 Lvl7.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -611,6 +705,8 @@ public class Energizer
             {
                 level++;
                 Lvl8.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -623,6 +719,8 @@ public class Energizer
             {
                 level++;
                 Lvl9.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -634,6 +732,8 @@ public class Energizer
             {
                 level++;
                 Lvl10.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -645,6 +745,8 @@ public class Energizer
             {
                 level++;
                 Lvl11.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -656,6 +758,8 @@ public class Energizer
             {
                 level++;
                 Lvl12.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -667,6 +771,8 @@ public class Energizer
             {
                 level++;
                 Lvl13.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -678,6 +784,8 @@ public class Energizer
             {
                 level++;
                 Lvl14.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -689,6 +797,8 @@ public class Energizer
             {
                 level++;
                 Lvl15.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -700,6 +810,8 @@ public class Energizer
             {
                 level++;
                 Lvl16.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -711,6 +823,8 @@ public class Energizer
             {
                 level++;
                 Lvl17.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -722,6 +836,8 @@ public class Energizer
             {
                 level++;
                 Lvl18.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -733,6 +849,8 @@ public class Energizer
             {
                 level++;
                 Lvl19.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -744,6 +862,8 @@ public class Energizer
             {
                 level++;
                 Lvl20.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -755,6 +875,8 @@ public class Energizer
             {
                 level++;
                 Lvl21.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -766,6 +888,8 @@ public class Energizer
             {
                 level++;
                 Lvl22.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -777,6 +901,8 @@ public class Energizer
             {
                 level++;
                 Lvl23.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -788,6 +914,8 @@ public class Energizer
             {
                 level++;
                 Lvl24.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -799,6 +927,8 @@ public class Energizer
             {
                 level++;
                 Lvl25.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -810,6 +940,8 @@ public class Energizer
             {
                 level++;
                 Lvl26.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -821,6 +953,8 @@ public class Energizer
             {
                 level++;
                 Lvl27.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -832,6 +966,8 @@ public class Energizer
             {
                 level++;
                 Lvl28.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -844,6 +980,8 @@ public class Energizer
             {
                 level++;
                 Lvl29.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -855,6 +993,8 @@ public class Energizer
             {
                 level++;
                 Lvl30.ToCaps(caps);
+
+                createMonsters();
             }
         }
     }
@@ -982,6 +1122,21 @@ public class Energizer
         public int x;
 
         public int y;
+    }
+
+    public class Monster
+    {
+        public int x;
+
+        public int y;
+
+        public Boolean follow;
+
+        public Monster(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
     }
 
     private enum lastKey
