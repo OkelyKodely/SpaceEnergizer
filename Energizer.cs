@@ -23,7 +23,7 @@ public class Energizer
 
     private WindowsMediaPlayer wmp = new WindowsMediaPlayer();
 
-    private WindowsMediaPlayer wmpDing = new WindowsMediaPlayer();
+    private WindowsMediaPlayer wmpDing = null;
 
     private System.Collections.Generic.List<Energy> caps = new System.Collections.Generic.List<Energy>();
 
@@ -427,37 +427,42 @@ public class Energizer
             {
                 int x = r.Next(2) - r.Next(2);
                 int y = r.Next(2) - r.Next(2);
-                int v = r.Next(10);
-                if(level % 2 == 0)
+                int v = r.Next(20);
+                int v2 = r.Next(7);
+                if (level % 2 == 0)
                 {
-                    monsters[i].follow = true;
                     if (v == 4)
                     {
-                        if (ship.x < monsters[i].x)
-                            monsters[i].x--;
-                        if (ship.y < monsters[i].y)
-                            monsters[i].y--;
-
-                        if (ship.x > monsters[i].x)
-                            monsters[i].x++;
-                        if (ship.y > monsters[i].y)
-                            monsters[i].y++;
+                        monsters[i].follow = !monsters[i].follow;
                     }
-                    else if(v == 5)
+                    else if (v2 == 4)
                     {
-                        if (ship.x < monsters[i].x)
-                            monsters[i].x++;
-                        if (ship.y < monsters[i].y)
-                            monsters[i].y++;
+                        monsters[i].follow = !monsters[i].follow;
+                    }
 
-                        if (ship.x > monsters[i].x)
+                    if (monsters[i].follow)
+                    {
+                        monsters[i].move = !monsters[i].move;
+                        if (ship.x < monsters[i].x && monsters[i].move)
                             monsters[i].x--;
-                        if (ship.y > monsters[i].y)
+                        if (ship.y < monsters[i].y && monsters[i].move)
                             monsters[i].y--;
+
+                        if (ship.x > monsters[i].x && monsters[i].move)
+                            monsters[i].x++;
+                        if (ship.y > monsters[i].y && monsters[i].move)
+                            monsters[i].y++;
                     }
                 }
-                monsters[i].x += x;
-                monsters[i].y += y;
+                if (!monsters[i].follow)
+                {
+                    monsters[i].move = !monsters[i].move;
+                    if (monsters[i].move)
+                    {
+                        monsters[i].x += x;
+                        monsters[i].y += y;
+                    }
+                }
                 if (ship.x == monsters[i].x && ship.y == monsters[i].y)
                 {
                     ship.life -= 100;
@@ -466,11 +471,15 @@ public class Energizer
                 try
                 {
                     Image m = null;
-                    if (!monsters[i].follow)
-                        m = monster;
-                    else
+                    if (monsters[i].follow)
+                    {
                         m = monsterFollow;
-                    g.DrawImage(m, monsters[i].x * 20, monsters[i].y * 20, 55, 55);
+                    }
+                    else
+                    {
+                        m = monster;
+                    }
+                    g.DrawImage(m, monsters[i].x * 20, monsters[i].y * 20, 35, 35);
                 }
                 catch (Exception ex)
                 {
@@ -487,7 +496,7 @@ public class Energizer
                     g.DrawImage(energy, caps[i].x * 20, caps[i].y * 20, 40, 40);
                     if (ship.x == caps[i].x && ship.y == caps[i].y)
                     {
-                        ship.life += 9;
+                        ship.life += 20;
                         g.DrawImage(explosion, ship.x * 20, ship.y * 20, 68, 68);
                         //threadPlayDing.Start();
                         explode();
@@ -504,10 +513,12 @@ public class Energizer
     private void explode()
     {
         if (wmpDing == null)
+        {
             wmpDing = new WindowsMediaPlayer();
+            wmpDing.URL = "explosion.wav";
+        }
         try
         {
-            wmpDing.URL = "explosion.wav";
             wmpDing.controls.play();
         }
         catch (Exception ex)
@@ -1130,7 +1141,7 @@ public class Energizer
 
         public int y;
 
-        public Boolean follow;
+        public Boolean follow, move;
 
         public Monster(int x, int y)
         {
