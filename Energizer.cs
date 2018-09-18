@@ -519,6 +519,7 @@ public class Energizer
         }
         try
         {
+            wmpDing.URL = "explosion.wav";
             wmpDing.controls.play();
         }
         catch (Exception ex)
